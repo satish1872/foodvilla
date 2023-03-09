@@ -9,6 +9,9 @@ const Body=()=>{
   const [searchTxt,setSearchTxt]=useState('');
   const [allRestaurants,setAllRestaurants]=useState([]);
   const [filterredRestaurants,setFilterredRestaurants]=useState([]);
+
+  console.log(allRestaurants);
+  
   useEffect(()=>{
     // console.log("rerender")
     // useEffect is best place for making API calls
@@ -20,7 +23,7 @@ const Body=()=>{
   async function getRestaurants(){
     const data=await fetch(`https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.5355161&lng=77.3910265&page_type=DESKTOP_WEB_LISTING`);
     const  json=await data.json();
-    // console.log(json.data.cards[2].data.data.cards);
+    console.log(json.data.cards[2].data.data.cards);
     setFilterredRestaurants(json?.data?.cards[2]?.data?.data?.cards);
     setAllRestaurants(json?.data?.cards[2]?.data?.data?.cards)
   }
@@ -31,9 +34,11 @@ const Body=()=>{
   function filterData(searchTxt,restaurants){
     return restaurants.filter(restaurant=>{
           // console.log(restaurant)
-          const name=restaurant?.data?.name;
-          if(name?.toLowerCase()==searchTxt.toLowerCase())
+          const name=restaurant?.data?.name.split(" ");
+          for(let word of name){
+            if(word?.toLowerCase()==searchTxt.toLowerCase())
            return restaurant
+          }
         })
   }
 
@@ -42,10 +47,14 @@ const Body=()=>{
   if(!allRestaurants)
   return null;
 
-  if(filterredRestaurants?.length==0)
+ /*  if(filterredRestaurants?.length==0)
   return <h4>No Resturant match your filter!!</h4>
+ */
+ 
 
-  return allRestaurants?.length? (
+  if( allRestaurants?.length!=0)
+  {
+    return (
   <>
   <div className='search-container'>
     <input type={'text'} className="search-input" 
@@ -68,8 +77,10 @@ const Body=()=>{
     })}
     </div>
   
- </>) :
-   (<Shimmer/>)
+ </>)} 
+  else
+    return (<Shimmer/>)
+    
  }
 
 export default Body

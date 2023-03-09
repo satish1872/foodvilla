@@ -2,7 +2,12 @@ import React from 'react'
 
 function Shimmer() {
   return (
-    <h1>Shimmer UI Loanding....</h1>
+    <div className='resturant-list'>
+      {Array(10).fill("").map(card=>{
+           return <><div className='shimmer-card'>
+           </div></>
+      })}
+    </div>
   )
 }
 

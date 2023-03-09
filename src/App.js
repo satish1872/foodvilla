@@ -4,6 +4,11 @@ import Footer from './components/Footer';
 import Body from './components/Body';
 import { IMG_CDN_URL, restaurantList } from './components/config';
 import  ResturantCard  from './components/ResturantCard';
+import  { createBrowserRouter ,Outlet,RouterProvider} from 'react-router-dom';
+import About from './components/About';
+import Error from './components/Error';
+import Contact from './components/Contact';
+import RestaurantMenu from './components/RestaurantMenu';
 {/* Header, 
       logo
       navBar/navitems(List item)
@@ -35,24 +40,55 @@ import  ResturantCard  from './components/ResturantCard';
   rating:"4.2"
  }
 
+ const AppLayout=()=>{
+  {/* <About/> //  if path=/about 
+   <Body/>
+   <Contact/> */}
+
+  return <>
+   <Header/>
+   {/* Outlet */}
+   <Outlet/>
+   <Footer/>
+  </>
+ }
+
+export const appRouter=createBrowserRouter(
+  [
+    {
+      path:"/",
+      element:<AppLayout/>, 
+      errorElement:<Error/>,
+      children:[
+        {
+          path:"/",
+          element:<Body/>,
+        },
+        {  
+          path:"/about",
+          element:<About/>,
+        },
+        {
+          path:"/contact",
+          element:<Contact/>,
+        },
+        {
+          path:`/restaurant/:id`,
+          element:<RestaurantMenu/>,
+        },
+      ]
+
+    },
+  ]
+)
 
 
 
 
-
-const AppLayout=()=>{
- return <>
-  <Header/>
-  <Body/>
-  <Footer/>
- </>
-}
 
 function App() {
   return (
-    <>
-    <AppLayout/>
-    </>
+    <RouterProvider router={appRouter}/>
   );
 }
 
