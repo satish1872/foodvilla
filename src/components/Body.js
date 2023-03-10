@@ -16,7 +16,7 @@ const Body=()=>{
     // console.log("rerender")
     // useEffect is best place for making API calls
     getRestaurants().catch((err)=>{
-      return console.log(err);
+      throw new Error(err);
     });
   },[])
 
