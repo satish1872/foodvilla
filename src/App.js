@@ -10,6 +10,10 @@ import Error from './components/Error';
 import Contact from './components/Contact';
 import RestaurantMenu from './components/RestaurantMenu';
 import Profile from './components/Profile';
+import { useState,lazy, Suspense } from 'react';
+import Shimmer from './components/Shimmer';
+/* this below import is a promise */
+const Instamart=lazy(()=>import(`./components/Instamart`))
 {/* Header, 
       logo
       navBar/navitems(List item)
@@ -80,6 +84,11 @@ export const appRouter=createBrowserRouter(
           element:<Contact/>,
         },
         {
+          path:"/instamart",
+          element:<Suspense fallback={<Shimmer/>}><Instamart/></Suspense>, 
+
+        },
+        {
           path:`/restaurant/:id`,
           element:<RestaurantMenu/>,
         },
@@ -94,6 +103,7 @@ export const appRouter=createBrowserRouter(
 
 
 function App() {
+  // console.log(useState())
   return (
     <RouterProvider router={appRouter}/>
   );

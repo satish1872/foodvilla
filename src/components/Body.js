@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { restaurantList } from './config'
 import  ResturantCard  from './ResturantCard'
 import Shimmer from './Shimmer';
-
-
+import { filterData } from '../utils/helper';
+import { Link } from 'react-router-dom';
+import useOnline from '../utils/useOnline';
 
 const Body=()=>{
   const [searchTxt,setSearchTxt]=useState('');
@@ -29,21 +30,9 @@ const Body=()=>{
   }
 
 
+  /* console.log("render"); */
 
-    
-  function filterData(searchTxt,restaurants){
-    return restaurants.filter(restaurant=>{
-          // console.log(restaurant)
-          const name=restaurant?.data?.name.split(" ");
-          for(let word of name){
-            if(word?.toLowerCase()==searchTxt.toLowerCase())
-           return restaurant
-          }
-        })
-  }
-
-  console.log("render");
-
+  
   if(!allRestaurants)
   return null;
 
@@ -72,8 +61,12 @@ const Body=()=>{
     }}>Search</button>
   </div>
     <div className='resturant-list'> { filterredRestaurants.map(restaurant=>{
-      return <ResturantCard {...restaurant.data}
+      return <>
+      <Link to={`/restaurant/${restaurant.data.id}`}>
+      <ResturantCard {...restaurant.data}
       />
+      </Link>
+      </>
     })}
     </div>
   
