@@ -10,7 +10,7 @@ const Title=()=>{
  <a href='/'>
  <img src={Logo }
   alt='Food Villa'
-  width={`100px`}
+  className='h-28 border px-2'
   />
  </a>
   </>
@@ -28,16 +28,16 @@ const Title=()=>{
 
   return (
     <>
-    <div className='header'>
-      <Title className="logo"/>
-      <button onClick={()=>( setTitle("New Title"))} >Change Title</button>
-      <div className='nav-items'>
-        <ul className="mylists">
-          <Link to="/"><li>Home</li></Link>
-          <li><Link to='/about'>About </Link></li>
-          <Link to="/contact"><li>Contacts</li></Link>
-          <Link to="/cart"><li>Cart</li></Link>
-          <Link to="/instamart"><li>Instamart</li></Link>
+    <div class=' flex px justify-between bg-pink-200 ... drop-shadow-lg'>
+      <Title/>
+      {/* <button onClick={()=>( setTitle("New Title"))} >Change Title</button> */}
+      <div className='flex px-10 '>
+        <ul className="flex p-1 m-2 py-10 px-10 space-x-2 ...">
+          <Link to="/"  class="px-2"><li>Home</li></Link>
+          <li class="px-2"><Link to='/about'>About </Link></li>
+          <Link to="/contact" class="px-2"><li>Contacts</li></Link>
+          <Link to="/cart" class="px-2"><li>Cart</li></Link>
+          <Link to="/instamart" class="px-2"><li>Instamart</li></Link>
         </ul>
       </div>
       <h1>{isOnline?'✅ ':'🔴'}</h1>

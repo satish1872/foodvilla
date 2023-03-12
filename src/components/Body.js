@@ -45,7 +45,7 @@ const Body=()=>{
   {
     return (
   <>
-  <div className='search-container'>
+  <div className='p-4 bg-pink-50 my-2'>
     <input type={'text'} className="search-input" 
     placeholder='Search'
     value={searchTxt}
@@ -54,16 +54,16 @@ const Body=()=>{
       // console.log(searchTxt)
     }}
     />
-    <button className='search-btn' onClick={()=>{
+    <button className='m-1 p-1 bg-purple-500 text-white rounded-md   hover:bg-purple-800' onClick={()=>{
       // need to filter data from allrResturant list
       const data=filterData(searchTxt,allRestaurants);
       setFilterredRestaurants(data);
     }}>Search</button>
   </div>
-    <div className='resturant-list'> { filterredRestaurants.map(restaurant=>{
+    <div className=' flex flex-wrap mx-2'> { filterredRestaurants.map(restaurant=>{
       return <>
       <Link to={`/restaurant/${restaurant.data.id}`}>
-      <ResturantCard {...restaurant.data}
+      <ResturantCard {...restaurant.data} className=""
       />
       </Link>
       </>
